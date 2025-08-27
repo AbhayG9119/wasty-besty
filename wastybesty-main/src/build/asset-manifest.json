@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.793f6ccf.css",
+    "main.js": "/static/js/main.7f31d841.js",
+    "static/media/white-leaves-border.jpg": "/static/media/white-leaves-border.b8250c2058dbf0dec9d7.jpg",
+    "static/media/bg.jpg": "/static/media/bg.150c8b9d6b6db168d1c0.jpg",
+    "index.html": "/index.html",
+    "main.793f6ccf.css.map": "/static/css/main.793f6ccf.css.map",
+    "main.7f31d841.js.map": "/static/js/main.7f31d841.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.793f6ccf.css",
+    "static/js/main.7f31d841.js"
+  ]
+}
