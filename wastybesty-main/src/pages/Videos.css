@@ -1,0 +1,229 @@
+.video-page {
+  background: #0b1511;
+  color: #eaf4ee;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.page-sub {
+  max-width: 700px;
+  margin: 0 auto;
+  color: #cfe6da;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.video-card {
+  background: linear-gradient(180deg, rgba(17, 50, 36, 0.9), rgba(15, 35, 28, 0.9));
+  border: 1px solid rgba(123, 211, 137, 0.15);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.video-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 32px rgba(0,0,0,0.45);
+}
+
+.video-frame {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+  margin-bottom: 12px;
+}
+
+.video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-title {
+  margin: 4px 0 6px;
+  color: #fff;
+  font-size: 1.06rem;
+}
+
+.video-desc {
+  margin: 0 0 12px;
+  color: #cfe6da;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.btn-yt {
+  background: #ff0033;
+  color: #fff;
+}
+
+.btn-yt:hover {
+  background: #e0002e;
+}
+
+.cta-section {
+  background: linear-gradient(135deg, #114d33, #0b2a1f);
+  padding: 50px 20px;
+  margin-top: 40px;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.cta-title {
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.cta-desc {
+  max-width: 700px;
+  margin: 0 auto 20px;
+  color: #d7efe3;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.btn-subscribe {
+  background: #ff0033;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.btn-subscribe:hover {
+  background: #e0002e;
+}
+
+.hero-videos {
+  position: relative;
+  padding: 60px 20px;
+  background: linear-gradient(180deg, #10351f, #0a2215);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Decorative leaves overlay */
+.hero-videos::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('/src/images/white-leaves-border.jpg') center/cover no-repeat;
+  opacity: 0.6;
+  pointer-events: none;
+  animation: leafGlow 6s ease-in-out infinite;
+  border-radius: 16px;
+}
+
+/* Gentle glow animation */
+@keyframes leafGlow {
+  0%, 100% { opacity: 0.5; filter: drop-shadow(0 0 2px #fff); }
+  50% { opacity: 0.8; filter: drop-shadow(0 0 8px #dfffe0); }
+}
+
+/* Keep text above the leaves */
+.hero-videos .container {
+  position: relative;
+  z-index: 1;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.video-card {
+  background: linear-gradient(180deg, rgba(17, 50, 36, 0.9), rgba(15, 35, 28, 0.9));
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.video-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('/src/images/bg.jpg') center/cover no-repeat;
+  opacity: 0.15;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.video-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+}
+
+.video-card:hover::before {
+  opacity: 0.35;
+}
+
+.video-frame {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+  margin-bottom: 12px;
+}
+
+.video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-title {
+  margin: 4px 0 6px;
+  color: #fff;
+  font-size: 1.06rem;
+}
+
+.video-desc {
+  margin: 0 0 12px;
+  color: #cfe6da;
+}
+
+.btn-yt {
+  background: #ff0033;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.btn-yt:hover {
+  background: #e0002e;
+}

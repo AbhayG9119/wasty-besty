@@ -1,0 +1,10 @@
+:root {
+  --bg: #0b3d0b;          /* Dark green background */
+  --card: #145214;        /* Slightly lighter green for cards/sections */
+  --text: #e6f4e6;        /* Light greenish text */
+  --muted: #a0c1a0;       /* Muted green for secondary text */
+  --accent: #86af4c;      /* Bright green for buttons/links/accents */
+  --container-max: 1200px;
+  --radius: 10px;
+  --gap: 1rem;
+}

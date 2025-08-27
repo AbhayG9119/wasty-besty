@@ -1,0 +1,10 @@
+
+@import './variables.css';
+*{box-sizing:border-box}
+body{margin:0; font-family:system-ui; background:var(--bg); color:var(--text);}
+a{color:inherit; text-decoration:none;}
+main{padding:1rem; max-width:var(--container-max); margin:0 auto;}
+.container{max-width:var(--container-max); margin:0 auto; padding:1rem;}
+.flex{display:flex; gap:var(--gap);}
+.grid{display:grid; gap:var(--gap);}
+.hidden{display:none;}

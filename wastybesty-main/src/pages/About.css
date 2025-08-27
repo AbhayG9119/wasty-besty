@@ -1,0 +1,110 @@
+.about-page {
+  background: #0b1511;
+  color: #eaf4ee;
+  font-family: sans-serif;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.page-sub {
+  max-width: 700px;
+  margin: 0 auto;
+  color: #cfe6da;
+}
+
+.story-section, .highlights-section {
+  margin-top: 40px;
+}
+
+.story-section p, .highlights-section ul {
+  color: #d7efe3;
+  line-height: 1.6;
+}
+
+.highlights-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.highlights-section li {
+  margin-bottom: 14px;
+}
+
+.highlights-section a {
+  color: #7bd389;
+  text-decoration: none;
+}
+
+.highlights-section a:hover {
+  text-decoration: underline;
+}
+
+.cta-section {
+  background: linear-gradient(135deg, #114d33, #0b2a1f);
+  padding: 50px 20px;
+  margin-top: 40px;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.cta-title {
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.cta-desc {
+  max-width: 700px;
+  margin: 0 auto 20px;
+  color: #d7efe3;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.btn-subscribe {
+  background: #ff0033;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.btn-subscribe:hover {
+  background: #e0002e;
+}
+
+.mam-section {
+  background: linear-gradient(#f7fff7, #eaf5ea);
+  padding: 3rem 0;
+}
+
+.mam-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+}
+
+.mam-photo img {
+  width: 260px;
+  border-radius: 14px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.mam-text {
+  flex: 1;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #2f3e2f;
+}
+
+.mam-text .highlight {
+  color: #3c7a3c;
+}

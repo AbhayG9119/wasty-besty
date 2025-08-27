@@ -1,0 +1,17 @@
+.navbar{
+  background: rgba(10,12,20,0.6);
+  backdrop-filter: blur(6px);
+  padding:0.8rem 1rem;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+.nav-inner{max-width:var(--container-max); margin:0 auto; display:flex; justify-content:space-between; align-items:center;}
+.nav-links{display:flex; list-style:none; gap:1rem; margin:0; padding:0;}
+.nav-links a{padding:0.4rem 0.6rem; border-radius:6px; color:var(--muted);}
+.nav-links a:hover{background:rgba(255,255,255,0.04); color:var(--text);}
+
+.hero{padding:2rem; border-radius:var(--radius); background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent); margin-bottom:2rem;}
+
+.footer{padding:1.25rem; text-align:center; color:var(--muted); margin-top:2rem;}
+.video-grid{display:grid; gap:1rem; grid-template-columns:repeat(auto-fit, minmax(280px,1fr));}
