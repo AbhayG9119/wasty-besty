@@ -2,7 +2,12 @@
   "name": "wastybesty-main",
   "version": "1.0.0",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-scripts": "5.0.0",
+    "react-router-dom": "^6.0.0"
+  },
   "devDependencies": {},
   "scripts": {
     "start": "react-scripts start",
