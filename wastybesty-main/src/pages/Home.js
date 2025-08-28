@@ -143,38 +143,30 @@ export default function Home() {
       );
     });
 
-    // Cards with 3D effect
-    const cards = gsap.utils.toArray(".video-card, .category-card");
+ // Cards with 3D effect
+const cards = gsap.utils.toArray(".video-card, .category-card");
 
-    cards.forEach((card) => {
-      gsap.set(card, { transformPerspective: 1000 });
+cards.forEach((card) => {
+  gsap.set(card, { transformPerspective: 1000 });
 
-      gsap.fromTo(card, 
-        { y: 30, opacity: 0, rotationY: -15, rotationX: 10 },
-        {
-          y: 0,
-          opacity: 1,
-          rotationY: 0,
-          rotationX: 0,
-          duration: 0.8,
-          scrollTrigger: {
-            trigger: card,
-            start: "top 90%",
-            toggleActions: "play none none reverse"
-          },
-          ease: "power3.out"
-        }
-      );
+  gsap.fromTo(card,
+    { y: 30, opacity: 0, rotationY: -15, rotationX: 10 },
+    {
+      y: 0,
+      opacity: 1,
+      rotationY: 0,
+      rotationX: 0,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: card,
+        start: "top 90%",
+        toggleActions: "play none none reverse"
+      },
+      ease: "power3.out"
+    }
+  );
 
-      // Handlers
-      const handleEnter = () => {
-        gsap.to(card, { rotationY: 5, rotationX: 5, scale: 1.03, duration: 0.3 });
-      };
-      const handleLeave = () => {
-        gsap.to(card, { rotationY: 0, rotationX: 0, scale: 1, duration: 0.3 });
-      };
-      const handleMove = (e) => {
-       cards.forEach((card) => {
+  // Handlers
   const handleEnter = () => {
     gsap.to(card, { scale: 1.05, duration: 0.3 });
   };
@@ -191,9 +183,8 @@ export default function Home() {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    // ✅ define rotation inside handler
-    const rotationY = ((x - centerX) / centerX) * 10; // tilt left/right
-    const rotationX = -((y - centerY) / centerY) * 10; // tilt up/down
+    const rotationY = ((x - centerX) / centerX) * 10;
+    const rotationX = -((y - centerY) / centerY) * 10;
 
     gsap.to(card, {
       rotateY: rotationY,
@@ -206,33 +197,20 @@ export default function Home() {
   card.addEventListener("mouseleave", handleLeave);
   card.addEventListener("mousemove", handleMove);
 
-  // cleanup properly
-  return () => {
+  // Cleanup
+  card._cleanup = () => {
     card.removeEventListener("mouseenter", handleEnter);
     card.removeEventListener("mouseleave", handleLeave);
     card.removeEventListener("mousemove", handleMove);
   };
 });
 
-      };
+return () => {
+  heroTl.kill();
+  ScrollTrigger.getAll().forEach(t => t.kill());
+  cards.forEach(card => card._cleanup && card._cleanup());
+};np
 
-      card.addEventListener("mouseenter", handleEnter);
-      card.addEventListener("mouseleave", handleLeave);
-      card.addEventListener("mousemove", handleMove);
-
-      // Cleanup per card
-      card._cleanup = () => {
-        card.removeEventListener("mouseenter", handleEnter);
-        card.removeEventListener("mouseleave", handleLeave);
-        card.removeEventListener("mousemove", handleMove);
-      };
-    });
-
-    return () => {
-      heroTl.kill();
-      ScrollTrigger.getAll().forEach(t => t.kill());
-      cards.forEach(card => card._cleanup && card._cleanup());
-    };
   }, []);
 
   return (
