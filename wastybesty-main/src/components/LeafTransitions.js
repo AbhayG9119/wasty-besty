@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import "./LeafTransitions.css";
 
 export default function LeafTransitions() {

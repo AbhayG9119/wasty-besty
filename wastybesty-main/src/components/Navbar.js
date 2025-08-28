@@ -37,9 +37,9 @@ export default function Navbar() {
             <li><NavLink to="/shorts" onClick={closeMenu}>Shorts</NavLink></li>
             <li><NavLink to="/about" onClick={closeMenu}>About</NavLink></li>
             <li><NavLink to="/contact" onClick={closeMenu}>Contact</NavLink></li>
-            <li><NavLink to="/faq" onClick={closeMenu}>FAQ</NavLink>
-            </li>
             <li><NavLink to="/blog" onClick={closeMenu}>Blogs</NavLink></li>
+            <li><NavLink to="/bestybuilds" onClick={closeMenu}>Wasty Besty</NavLink></li>
+            <li><NavLink to="/plantcareguide" onClick={closeMenu}>Plant Care </NavLink></li>
           </ul>
         </nav>
       </div>

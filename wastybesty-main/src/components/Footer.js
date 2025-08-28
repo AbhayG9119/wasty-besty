@@ -70,10 +70,10 @@ const Footer = () => {
             <a href="https://youtube.com" aria-label="YouTube">
               <FaYoutube />
             </a>
-            <a href="https://instagram.com" aria-label="Instagram">
+            <a href="https://www.instagram.com/wasty_besty?igsh=MTlrdzk3MDJycDZqaw==" aria-label="Instagram">
               <FaInstagram />
             </a>
-            <a href="https://facebook.com" aria-label="Facebook">
+            <a href="https://www.facebook.com/share/14JYHxfwu4Q/" aria-label="Facebook">
               <FaFacebook />
             </a>
             <a href="https://linkedin.com" aria-label="LinkedIn">
