@@ -1,6 +1,6 @@
 // src/pages/Home.js
 import React from 'react';
-import Footer from '../components/Footer';
+// import Footer from '../components/Footer';
 import LeafTransitions from '../components/LeafTransitions';
 import '../components/LeafTransitions.css';
 import './Home.css';
@@ -231,8 +231,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <Footer />
+      
     </main>
   );
 }
