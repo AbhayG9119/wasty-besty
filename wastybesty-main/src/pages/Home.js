@@ -14,14 +14,11 @@ function VideoCard({ id, title, desc }) {
     <motion.article 
       className="card video-card"
       whileHover={{ scale: 1.05, boxShadow: "0 15px 30px rgba(0,0,0,0.5)" }}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
     >
       <div className="video-frame">
         <iframe
           src={`https://www.youtube.com/embed/${id}`}
-          title={title}
+          title={`Video: ${title}`}
           loading="lazy"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
@@ -51,9 +48,6 @@ function CategoryCard({ title, link }) {
       rel="noopener noreferrer"
       aria-label={`Open playlist ${title}`}
       whileHover={{ scale: 1.05, boxShadow: "0 15px 30px rgba(0,0,0,0.5)" }}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
     >
       <span className="category-title">{title}</span>
       <span className="category-arrow">→</span>
@@ -108,16 +102,16 @@ export default function Home() {
 
   // GSAP Animations
   useEffect(() => {
-    // Hero section animations with 3D effects
     const heroTl = gsap.timeline();
-    
+
+    // Hero section
     heroTl.fromTo(".hero-logo", 
       { scale: 0, opacity: 0, rotationY: -180 },
       { scale: 1, opacity: 1, rotationY: 0, duration: 1.5, ease: "elastic.out(1, 0.8)" }
     )
     .fromTo(".hero-title", 
-      { y: 50, opacity: 0, rotationX: -90 },
-      { y: 0, opacity: 1, rotationX: 0, duration: 1, ease: "back.out(1.7)" }, 
+      { y: 50, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, ease: "back.out(1.7)" }, 
       "-=0.8"
     )
     .fromTo(".hero-tagline", 
@@ -126,17 +120,12 @@ export default function Home() {
       "-=0.6"
     )
     .fromTo(".hero-sub", 
-      { y: 30, opacity: 0, skewX: 10 },
-      { y: 0, opacity: 1, skewX: 0, duration: 0.8, ease: "power2.out" }, 
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, 
       "-=0.5"
-    )
-    .fromTo(".hero-cta .btn", 
-      { y: 20, opacity: 0, scale: 0.5 },
-      { y: 0, opacity: 1, scale: 1, duration: 0.6, stagger: 0.2, ease: "back.out(1.7)" }, 
-      "-=0.4"
     );
 
-    // Section animations with 3D flip effect
+    // Section animations
     gsap.utils.toArray(".section").forEach(section => {
       gsap.fromTo(section, 
         { y: 50, opacity: 0, rotationX: -15 },
@@ -148,20 +137,19 @@ export default function Home() {
           scrollTrigger: {
             trigger: section,
             start: "top 85%",
-            toggleActions: "play none none reverse",
-            once: false
+            toggleActions: "play none none reverse"
           },
           ease: "power3.out"
         }
       );
     });
 
-    // Video card animations with 3D tilt effect
-    gsap.utils.toArray(".video-card, .category-card").forEach((card, i) => {
-      // Initial state for cards
+    // Cards with 3D effect
+    const cards = gsap.utils.toArray(".video-card, .category-card");
+
+    cards.forEach((card) => {
       gsap.set(card, { transformPerspective: 1000 });
-      
-      // Entrance animation
+
       gsap.fromTo(card, 
         { y: 30, opacity: 0, rotationY: -15, rotationX: 10 },
         {
@@ -173,86 +161,87 @@ export default function Home() {
           scrollTrigger: {
             trigger: card,
             start: "top 90%",
-            toggleActions: "play none none reverse",
-            once: false
+            toggleActions: "play none none reverse"
           },
           ease: "power3.out"
         }
       );
-      
-      // Hover effect with 3D tilt
-      card.addEventListener("mouseenter", () => {
-        gsap.to(card, {
-          rotationY: 5,
-          rotationX: 5,
-          scale: 1.03,
-          duration: 0.3,
-          ease: "power2.out"
-        });
-      });
-      
-      card.addEventListener("mouseleave", () => {
-        gsap.to(card, {
-          rotationY: 0,
-          rotationX: 0,
-          scale: 1,
-          duration: 0.3,
-          ease: "power2.out"
-        });
-      });
-      
-      // Mouse move effect for subtle 3D tilt
-      card.addEventListener("mousemove", (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateY = (x - centerX) / 10;
-        const rotateX = (centerY - y) / 10;
-        
-        gsap.to(card, {
-          rotationY: rotateY,
-          rotationX: rotateX,
-          duration: 0.3,
-          ease: "power2.out"
-        });
-      });
+
+      // Handlers
+      const handleEnter = () => {
+        gsap.to(card, { rotationY: 5, rotationX: 5, scale: 1.03, duration: 0.3 });
+      };
+      const handleLeave = () => {
+        gsap.to(card, { rotationY: 0, rotationX: 0, scale: 1, duration: 0.3 });
+      };
+      const handleMove = (e) => {
+       cards.forEach((card) => {
+  const handleEnter = () => {
+    gsap.to(card, { scale: 1.05, duration: 0.3 });
+  };
+
+  const handleLeave = () => {
+    gsap.to(card, { scale: 1, rotateX: 0, rotateY: 0, duration: 0.3 });
+  };
+
+  const handleMove = (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    // ✅ define rotation inside handler
+    const rotationY = ((x - centerX) / centerX) * 10; // tilt left/right
+    const rotationX = -((y - centerY) / centerY) * 10; // tilt up/down
+
+    gsap.to(card, {
+      rotateY: rotationY,
+      rotateX: rotationX,
+      duration: 0.3,
+    });
+  };
+
+  card.addEventListener("mouseenter", handleEnter);
+  card.addEventListener("mouseleave", handleLeave);
+  card.addEventListener("mousemove", handleMove);
+
+  // cleanup properly
+  return () => {
+    card.removeEventListener("mouseenter", handleEnter);
+    card.removeEventListener("mouseleave", handleLeave);
+    card.removeEventListener("mousemove", handleMove);
+  };
+});
+
+      };
+
+      card.addEventListener("mouseenter", handleEnter);
+      card.addEventListener("mouseleave", handleLeave);
+      card.addEventListener("mousemove", handleMove);
+
+      // Cleanup per card
+      card._cleanup = () => {
+        card.removeEventListener("mouseenter", handleEnter);
+        card.removeEventListener("mouseleave", handleLeave);
+        card.removeEventListener("mousemove", handleMove);
+      };
     });
 
-    // Cleanup function
     return () => {
       heroTl.kill();
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-      // Remove event listeners
-      document.querySelectorAll(".video-card, .category-card").forEach(card => {
-        card.removeEventListener("mouseenter", () => {});
-        card.removeEventListener("mouseleave", () => {});
-        card.removeEventListener("mousemove", () => {});
-      });
+      ScrollTrigger.getAll().forEach(t => t.kill());
+      cards.forEach(card => card._cleanup && card._cleanup());
     };
   }, []);
 
   return (
-    <motion.main 
-      className="home-page"
-      initial="hidden"
-      animate="visible"
-      variants={{
-        hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
-      }}
-    >
+    <motion.main className="home-page">
       {/* Hero */}
-      <motion.section 
-        className="hero hero-bg" 
-        aria-labelledby="hero-heading"
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
+      <section className="hero hero-bg" aria-labelledby="hero-heading">
         <div className="hero-overlay" />
-        <motion.div className="hero-inner" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 1 }}>
+        <div className="hero-inner">
           <motion.img
             className="hero-logo"
             src="https://yt3.googleusercontent.com/ytc/AIdro_kzc2V698OvpFqD4ojbU_HLMF-DRk8FMJ9aPuUESWYMYBQ=s160-c-k-c0x00ffffff-no-rj"
@@ -261,37 +250,14 @@ export default function Home() {
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 100, damping: 10 }}
           />
-          <motion.h1 
-            id="hero-heading" 
-            className="hero-title"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.7, duration: 0.6 }}
-          >
-            Wasty Besty
-          </motion.h1>
-          <motion.p 
-            className="hero-tagline"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-          >
+          <h1 id="hero-heading" className="hero-title">Wasty Besty</h1>
+          <p className="hero-tagline">
             Entertainment | Fun | Creativity — All in One Place!
-          </motion.p>
-          <motion.p 
-            className="hero-sub"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.9, duration: 0.6 }}
-          >
+          </p>
+          <p className="hero-sub">
             Hosted by Mam — your DIY gardening guide for upcycled projects, plant care, and calm green vibes.
-          </motion.p>
-          <motion.div 
-            className="hero-cta"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.1, duration: 0.8 }}
-          >
+          </p>
+          <div className="hero-cta">
             <a
               className="btn btn-yt"
               href="https://www.youtube.com/@WastyBesty"
@@ -308,42 +274,28 @@ export default function Home() {
             >
               Watch Latest Videos
             </a>
-          </motion.div>
-        </motion.div>
-        {/* Decorative leaves (already styled by LeafTransitions.css) */}
+          </div>
+        </div>
         <LeafTransitions />
-      </motion.section>
+      </section>
 
       {/* About */}
-      <motion.section 
-        className="section section-alt" 
-        aria-labelledby="about-heading"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
+      <section className="section section-alt" aria-labelledby="about-heading">
         <div className="container">
           <h2 id="about-heading" className="section-title">Who We Are</h2>
           <p className="section-text">
             We spread smiles, laughter, and creativity through nature. From DIY “Best Out of Waste” to plant care and
-            garden tours, our videos make learning feel soothing and fun. Every week we share fresh ideas, practical tips,
-            and joyful moments to grow your green space.
+            garden tours, our videos make learning feel soothing and fun.
           </p>
           <p className="section-text">
             Whether you are a beginner or a plant lover, you’ll find quick hacks, relatable content, and community vibes
             that bring you closer to nature.
           </p>
         </div>
-      </motion.section>
+      </section>
 
       {/* Featured Videos */}
-      <motion.section 
-        className="section" 
-        aria-labelledby="featured-heading"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
+      <section className="section" aria-labelledby="featured-heading">
         <div className="container">
           <h2 id="featured-heading" className="section-title">Featured Videos</h2>
           <div className="grid">
@@ -352,16 +304,10 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* Series / Playlists */}
-      <motion.section 
-        className="section section-alt" 
-        aria-labelledby="series-heading"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
+      <section className="section section-alt" aria-labelledby="series-heading">
         <div className="container">
           <h2 id="series-heading" className="section-title">Explore Our Series</h2>
           <div className="grid grid-categories">
@@ -369,20 +315,11 @@ export default function Home() {
               <CategoryCard key={s.title} {...s} />
             ))}
           </div>
-          <p className="section-note">
-            Tip: Replace these links with your exact playlist URLs for Herbal, Vegetables, Flowers, Succulents, and Gardening ki पाठशाला.
-          </p>
         </div>
-      </motion.section>
+      </section>
 
       {/* Tips & Hacks */}
-      <motion.section 
-        className="section" 
-        aria-labelledby="tips-heading"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
+      <section className="section" aria-labelledby="tips-heading">
         <div className="container">
           <h2 id="tips-heading" className="section-title">Gardening Tips & Hacks</h2>
           <div className="grid">
@@ -415,16 +352,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </motion.section>
+      </section>
 
-      {/* Vlog & Personal Touch */} 
-      <motion.section 
-        className="section section-alt" 
-        aria-labelledby="vlog-heading"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
+      {/* Vlog & Personal Touch */}
+      <section className="section section-alt" aria-labelledby="vlog-heading">
         <div className="container">
           <h2 id="vlog-heading" className="section-title">From the Creator</h2>
           <div className="vlog-wrap">
@@ -442,10 +373,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-      </motion.section>
-
-      
+      </section>
     </motion.main>
   );
 }
-
