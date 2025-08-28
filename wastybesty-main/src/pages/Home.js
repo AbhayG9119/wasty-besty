@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import LeafTransitions from '../components/LeafTransitions';
-import '../components/LeafTransitions.css';
+
 import './Home.css';
 
 // Register GSAP plugins
@@ -276,7 +275,7 @@ export default function Home() {
             </a>
           </div>
         </div>
-        <LeafTransitions />
+
       </section>
 
       {/* About */}
