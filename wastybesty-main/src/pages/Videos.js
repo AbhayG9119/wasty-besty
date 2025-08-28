@@ -1,5 +1,5 @@
 import React from 'react';
-import Footer from '../components/Footer';
+// import Footer from '../components/Footer';
 import './Videos.css';
 
 function VideoCard({ id, title, desc, link }) {
