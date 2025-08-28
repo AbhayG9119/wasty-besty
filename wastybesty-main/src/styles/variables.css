@@ -1,9 +1,19 @@
 :root {
-  --bg: #0b3d0b;          /* Dark green background */
+  /* Nature-first palette */
+  --bg: #42876c;           /* deep forest */
+  --panel: #1a3c31;        /* dark moss */
+  --panel-2: #214335;      /* deeper moss */
+  --leaf-1: #1e5f46;       /* leaf green */
+  --leaf-2: #2e7d5a;       /* brighter leaf */
+  --accent: #7bd389;       /* soft mint accent */
+  --accent-2: #a7f3d0;     /* pale green highlight */
+  --yt: #ff0033;           /* YouTube red */
+  --text: #eaf4ee;         /* off-white */
+  --muted: #cfe6da;        /* soft mint */
+  --shadow: 0 6px 24px rgba(0,0,0,0.35);
+  
+  /* Legacy variables for compatibility */
   --card: #145214;        /* Slightly lighter green for cards/sections */
-  --text: #e6f4e6;        /* Light greenish text */
-  --muted: #a0c1a0;       /* Muted green for secondary text */
-  --accent: #86af4c;      /* Bright green for buttons/links/accents */
   --container-max: 1200px;
   --radius: 10px;
   --gap: 1rem;
