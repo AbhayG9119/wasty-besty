@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root{
   --bg:#e6f2e6;            /* natural light green background */
   --panel:#f9fff4;         /* card/panel background */
