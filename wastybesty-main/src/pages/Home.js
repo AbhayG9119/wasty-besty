@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -10,9 +9,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 function VideoCard({ id, title, desc }) {
   return (
-    <motion.article 
+    <article 
       className="card video-card"
-      whileHover={{ scale: 1.05, boxShadow: "0 15px 30px rgba(0,0,0,0.5)" }}
     >
       <div className="video-frame">
         <iframe
@@ -34,23 +32,22 @@ function VideoCard({ id, title, desc }) {
       >
         Watch on YouTube
       </a>
-    </motion.article>
+    </article>
   );
 }
 
 function CategoryCard({ title, link }) {
   return (
-    <motion.a
+    <a
       className="card category-card"
       href={link}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Open playlist ${title}`}
-      whileHover={{ scale: 1.05, boxShadow: "0 15px 30px rgba(0,0,0,0.5)" }}
     >
       <span className="category-title">{title}</span>
       <span className="category-arrow">→</span>
-    </motion.a>
+    </a>
   );
 }
 
@@ -143,89 +140,83 @@ export default function Home() {
       );
     });
 
- // Cards with 3D effect
-const cards = gsap.utils.toArray(".video-card, .category-card");
+    // Cards with 3D effect
+    const cards = gsap.utils.toArray(".video-card, .category-card");
 
-cards.forEach((card) => {
-  gsap.set(card, { transformPerspective: 1000 });
+    cards.forEach((card) => {
+      gsap.set(card, { transformPerspective: 1000 });
 
-  gsap.fromTo(card,
-    { y: 30, opacity: 0, rotationY: -15, rotationX: 10 },
-    {
-      y: 0,
-      opacity: 1,
-      rotationY: 0,
-      rotationX: 0,
-      duration: 0.8,
-      scrollTrigger: {
-        trigger: card,
-        start: "top 90%",
-        toggleActions: "play none none reverse"
-      },
-      ease: "power3.out"
-    }
-  );
+      gsap.fromTo(card,
+        { y: 30, opacity: 0, rotationY: -15, rotationX: 10 },
+        {
+          y: 0,
+          opacity: 1,
+          rotationY: 0,
+          rotationX: 0,
+          duration: 0.8,
+          scrollTrigger: {
+            trigger: card,
+            start: "top 90%",
+            toggleActions: "play none none reverse"
+          },
+          ease: "power3.out"
+        }
+      );
 
-  // Handlers
-  const handleEnter = () => {
-    gsap.to(card, { scale: 1.05, duration: 0.3 });
-  };
+      const handleEnter = () => {
+        gsap.to(card, { scale: 1.05, duration: 0.3 });
+      };
 
-  const handleLeave = () => {
-    gsap.to(card, { scale: 1, rotateX: 0, rotateY: 0, duration: 0.3 });
-  };
+      const handleLeave = () => {
+        gsap.to(card, { scale: 1, rotateX: 0, rotateY: 0, duration: 0.3 });
+      };
 
-  const handleMove = (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+      const handleMove = (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
 
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
 
-    const rotationY = ((x - centerX) / centerX) * 10;
-    const rotationX = -((y - centerY) / centerY) * 10;
+        const rotationY = ((x - centerX) / centerX) * 10;
+        const rotationX = -((y - centerY) / centerY) * 10;
 
-    gsap.to(card, {
-      rotateY: rotationY,
-      rotateX: rotationX,
-      duration: 0.3,
+        gsap.to(card, {
+          rotateY: rotationY,
+          rotateX: rotationX,
+          duration: 0.3,
+        });
+      };
+
+      card.addEventListener("mouseenter", handleEnter);
+      card.addEventListener("mouseleave", handleLeave);
+      card.addEventListener("mousemove", handleMove);
+
+      card._cleanup = () => {
+        card.removeEventListener("mouseenter", handleEnter);
+        card.removeEventListener("mouseleave", handleLeave);
+        card.removeEventListener("mousemove", handleMove);
+      };
     });
-  };
 
-  card.addEventListener("mouseenter", handleEnter);
-  card.addEventListener("mouseleave", handleLeave);
-  card.addEventListener("mousemove", handleMove);
-
-  // Cleanup
-  card._cleanup = () => {
-    card.removeEventListener("mouseenter", handleEnter);
-    card.removeEventListener("mouseleave", handleLeave);
-    card.removeEventListener("mousemove", handleMove);
-  };
-});
-
-return () => {
-  heroTl.kill();
-  ScrollTrigger.getAll().forEach(t => t.kill());
-  cards.forEach(card => card._cleanup && card._cleanup());
-};np
-
+    return () => {
+      heroTl.kill();
+      ScrollTrigger.getAll().forEach(t => t.kill());
+      cards.forEach(card => card._cleanup && card._cleanup());
+    };
   }, []);
 
   return (
-    <motion.main className="home-page">
+    <main className="home-page">
       {/* Hero */}
       <section className="hero hero-bg" aria-labelledby="hero-heading">
         <div className="hero-overlay" />
         <div className="hero-inner">
-          <motion.img
+          <img
             className="hero-logo"
             src="https://yt3.googleusercontent.com/ytc/AIdro_kzc2V698OvpFqD4ojbU_HLMF-DRk8FMJ9aPuUESWYMYBQ=s160-c-k-c0x00ffffff-no-rj"
             alt="Wasty Besty Logo"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 100, damping: 10 }}
           />
           <h1 id="hero-heading" className="hero-title">Wasty Besty</h1>
           <p className="hero-tagline">
@@ -253,7 +244,6 @@ return () => {
             </a>
           </div>
         </div>
-
       </section>
 
       {/* About */}
@@ -351,6 +341,6 @@ return () => {
           </div>
         </div>
       </section>
-    </motion.main>
+    </main>
   );
 }
