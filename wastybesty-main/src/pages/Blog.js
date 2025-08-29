@@ -1,6 +1,11 @@
-import React from 'react';
-// import Footer from '../components/Footer';
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsapAnimations } from '../utils/gsapAnimations';
 import './Blog.css';
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 // Blog Card Component
 function BlogCard({ cover, title, date, summary, link, tags }) {
@@ -31,6 +36,28 @@ function BlogCard({ cover, title, date, summary, link, tags }) {
 }
 
 export default function Blog() {
+  const heroTl = useRef(null);
+  const cleanupFunctions = useRef([]);
+
+  useEffect(() => {
+    // Hero animations
+    heroTl.current = gsapAnimations.animateHero({
+      title: document.querySelector('.page-title'),
+      subtitle: document.querySelector('.page-sub')
+    });
+
+    // Section animations
+    gsapAnimations.animateSections();
+
+    // Card animations
+    const cardCleanup = gsapAnimations.animateCards('.blog-card');
+    cleanupFunctions.current = cardCleanup;
+
+    return () => {
+      gsapAnimations.cleanupAnimations(heroTl.current, cleanupFunctions.current);
+    };
+  }, []);
+
   const posts = [
     {
       cover:

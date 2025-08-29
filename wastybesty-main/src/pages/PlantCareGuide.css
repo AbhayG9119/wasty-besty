@@ -18,7 +18,7 @@
 
 .hero-subb {
   font-size: 1.2rem;
-  color: #f2f5f2;
+  color: #024602;
   margin-top: 0.5rem;
 }
 
@@ -95,6 +95,7 @@
   color: #443131;
   max-width: 600px;
   margin: auto;
+  text-align: center;
 }
 
 .season-list li,

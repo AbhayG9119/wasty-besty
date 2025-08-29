@@ -1,6 +1,12 @@
- import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsapAnimations } from '../utils/gsapAnimations';
 import './BestyBuilds.css';
 // import Footer from '../components/Footer';
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 // Reusable Section Wrapper
 const Section = ({ title, children, id }) => (
@@ -62,6 +68,28 @@ const CategoryCard = ({ title, link }) => (
 );
 
 const BestyBuilds = () => {
+  const heroTl = useRef(null);
+  const cleanupFunctions = useRef([]);
+
+  useEffect(() => {
+    // Hero animations
+    heroTl.current = gsapAnimations.animateHero({
+      title: document.querySelector('.hero-title'),
+      subtitle: document.querySelector('.hero-tagline')
+    });
+
+    // Section animations
+    gsapAnimations.animateSections();
+
+    // Card animations
+    const cardCleanup = gsapAnimations.animateCards('.project-card, .category-card, .stat-card');
+    cleanupFunctions.current = cardCleanup;
+
+    return () => {
+      gsapAnimations.cleanupAnimations(heroTl.current, cleanupFunctions.current);
+    };
+  }, []);
+
   const featuredProjects = [
     {
       id: 'bottle-planters',

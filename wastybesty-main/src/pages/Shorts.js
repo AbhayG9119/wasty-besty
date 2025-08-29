@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import Footer from '../components/Footer';
 import './Shorts.css';
+import { gsapAnimations } from '../utils/gsapAnimations';
 
 function ShortCard({ id, title, desc, link }) {
   return (
@@ -29,6 +30,17 @@ function ShortCard({ id, title, desc, link }) {
 }
 
 export default function Shorts() {
+  useEffect(() => {
+    // Initialize GSAP animations
+    gsapAnimations.animateSections('.section');
+    gsapAnimations.animateCards('.short-card');
+    
+    // Cleanup function
+    return () => {
+      gsapAnimations.cleanupAnimations();
+    };
+  }, []);
+
   const categories = [
     {
       name: '🌱 Quick Plant Care Tips',

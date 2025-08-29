@@ -1,12 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsapAnimations } from '../utils/gsapAnimations';
 import "./Contact.css";
 import FAQAccordion from "../components/FAQAccordion";
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 const initialForm = { name: "", email: "", phone: "", message: "" };
 
 export default function Contact() {
+  const heroTl = useRef(null);
+  const cleanupFunctions = useRef([]);
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState(null);
+
+  useEffect(() => {
+    // Hero animations
+    heroTl.current = gsapAnimations.animateHero({
+      title: document.querySelector('h1'),
+      subtitle: document.querySelector('p')
+    });
+
+    // Section animations
+    gsapAnimations.animateSections();
+
+    return () => {
+      gsapAnimations.cleanupAnimations(heroTl.current, cleanupFunctions.current);
+    };
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

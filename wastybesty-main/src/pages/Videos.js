@@ -1,6 +1,11 @@
-import React from 'react';
-// import Footer from '../components/Footer';
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsapAnimations } from '../utils/gsapAnimations';
 import './Videos.css';
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 function VideoCard({ id, title, desc, link }) {
   return (
@@ -24,6 +29,28 @@ function VideoCard({ id, title, desc, link }) {
 }
 
 export default function Videos() {
+  const heroTl = useRef(null);
+  const cleanupFunctions = useRef([]);
+
+  useEffect(() => {
+    // Hero animations
+    heroTl.current = gsapAnimations.animateHero({
+      title: document.querySelector('.page-title'),
+      subtitle: document.querySelector('.page-sub')
+    });
+
+    // Section animations
+    gsapAnimations.animateSections();
+
+    // Card animations
+    const cardCleanup = gsapAnimations.animateCards('.video-card');
+    cleanupFunctions.current = cardCleanup;
+
+    return () => {
+      gsapAnimations.cleanupAnimations(heroTl.current, cleanupFunctions.current);
+    };
+  }, []);
+
   const categories = [
     {
       name: "🌱 Gardening Hacks & Plant Care",

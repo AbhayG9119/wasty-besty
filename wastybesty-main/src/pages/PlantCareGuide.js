@@ -1,6 +1,12 @@
 // src/pages/PlantCareGuide.js
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsapAnimations } from '../utils/gsapAnimations';
 import './PlantCareGuide.css';
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 const plants = [
   {
@@ -69,6 +75,28 @@ const plants = [
 ];
 
 export default function PlantCareGuide() {
+  const heroTl = useRef(null);
+  const cleanupFunctions = useRef([]);
+
+  useEffect(() => {
+    // Hero animations
+    heroTl.current = gsapAnimations.animateHero({
+      title: document.querySelector('.hero-titlee'),
+      subtitle: document.querySelector('.hero-subb')
+    });
+
+    // Section animations
+    gsapAnimations.animateSections();
+
+    // Card animations
+    const cardCleanup = gsapAnimations.animateCards('.plant-card');
+    cleanupFunctions.current = cardCleanup;
+
+    return () => {
+      gsapAnimations.cleanupAnimations(heroTl.current, cleanupFunctions.current);
+    };
+  }, []);
+
   return (
     <main className="plantcare-page">
       {/* Hero Section */}

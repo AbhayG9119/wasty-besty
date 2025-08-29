@@ -1,8 +1,34 @@
-import React from 'react';
-// import Footer from '../components/Footer';
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsapAnimations } from '../utils/gsapAnimations';
 import './About.css';
 
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
+
 export default function About() {
+  const heroTl = useRef(null);
+  const cleanupFunctions = useRef([]);
+
+  useEffect(() => {
+    // Hero animations
+    heroTl.current = gsapAnimations.animateHero({
+      title: document.querySelector('.page-title'),
+      subtitle: document.querySelector('.page-sub')
+    });
+
+    // Section animations
+    gsapAnimations.animateSections();
+
+    // Card animations (if any cards are present)
+    const cardCleanup = gsapAnimations.animateCards();
+    cleanupFunctions.current = cardCleanup;
+
+    return () => {
+      gsapAnimations.cleanupAnimations(heroTl.current, cleanupFunctions.current);
+    };
+  }, []);
   return (
     <main className="about-page">
       {/* Hero Section */}
